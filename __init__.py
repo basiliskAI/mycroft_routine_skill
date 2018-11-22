@@ -102,13 +102,16 @@ class MycroftRoutineSkill(MycroftSkill):
     def _create_routine(self, message):
         name = self.get_response("name.it")
         if not name:
+            LOGGER.info("No name supplied.")
             return
         name = name.lower()
         if name in self._cancel_words:
+            LOGGER.info("Response was {response} which is a canel word.", response=name)
             return
 
         tasks = self._get_task_list()
         if not tasks:
+            LOGGER.info("No tasks were given.")
             return
 
         self._routines[name]['tasks'] = tasks
